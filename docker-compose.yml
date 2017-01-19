@@ -1,0 +1,12 @@
+mongodata:
+  image: mongo:3.4
+  volumes:
+    - ./scrapy_project/data:/data/db
+  command: /bin/true
+mongo:
+  image: mongo:3.4
+  volumes_from:
+    - mongodata
+  ports:
+    - "27017:27017"
+  command: --rest --httpinterface

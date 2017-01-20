@@ -1,12 +1,19 @@
 mongodata:
   image: mongo:3.4
   volumes:
-    - ./scrapy_project/data:/data/db
-  command: /bin/true
+    - ./data:/data/db
 mongo:
+  image: mongo:3.4
+  ports:
+    - "27017:27017"
+  command: --port=27017
+mongo-seed:
   image: mongo:3.4
   volumes_from:
     - mongodata
-  ports:
-    - "27017:27017"
-  command: --rest --httpinterface
+  links:
+    - mongo
+  command: >
+    mongoimport -d moto -c helmet 
+    --drop --host=0.0.0.0:27017
+    --jsonArray /data/db/lids.json 

@@ -11,7 +11,7 @@ class LidSpider(scrapy.Spider):
 
     def start_requests(self):
         urls = ['https://sharp.dft.gov.uk/testhelmetlist?page=%d&sharp-make=All&sharp-model=&sharp-type=All&sharp-rating=1&discontinued=1' % i for i in range(0, 41)]
-        for url in urls[1:2]:
+        for url in urls:
             yield scrapy.Request(url, callback=self.parse_summary)
 
     def parse_summary(self, response):

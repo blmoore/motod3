@@ -90,5 +90,6 @@ ROBOTSTXT_OBEY = True
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 ITEM_PIPELINES = {'scrapy.pipelines.images.ImagesPipeline': 1}
-IMAGES_STORE = 'data/images'
+# path relative to project base dir
+IMAGES_STORE = '../data/images'
 IMAGES_URLS_FIELD = 'image'

@@ -20,6 +20,7 @@ class LidSpider(scrapy.Spider):
                 'type': row.xpath('./td[contains(@class, "views-field-name")]/text()').extract(),
                 'image': row.xpath('./td[contains(@class, "views-field-field-helmet-image-fid-1")]/img/@src').extract(),
                 'price': row.xpath('./td[contains(@class, "views-field-field-price-value")]/text()').extract(),
-                'size_range': row.xpath('./td[contains(@class, "views-field-tid")]/text()').extract()
+                'size_range': row.xpath('./td[contains(@class, "views-field-tid")]/text()').extract(),
+                'rating': row.xpath('substring(./td[contains(@class, "views-field-field-rating-value")]/img/@alt, 1, 1)').extract()
             }
 

@@ -8,11 +8,22 @@
 import scrapy
 
 
-class LidScrapeItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    name = scrapy.Field()
+class LidItem(scrapy.Item):
+
+    name = scrapy.Field(serializer=str)
     type = scrapy.Field()
     image = scrapy.Field()
     price = scrapy.Field()
     size_range = scrapy.Field()
+    rating = scrapy.Field()
+
+    # details subpage
+    detail_url = scrapy.Field()
+    chinguard = scrapy.Field()
+    weight = scrapy.Field()
+    material = scrapy.Field()
+    retention = scrapy.Field()
+
+    # impact ratings
+    impact = scrapy.Field()
+

@@ -21,7 +21,7 @@ schema = {
         'type': 'string'
         },
     'rating': {
-        'type': 'int'
+        'type': 'string'
         }
 }
 
@@ -31,12 +31,16 @@ helmets = {
         'url': 'regex(".+")',
         'field': 'name'
      },
+
+    'cache_control': '',
+    'cache_expires': 0,
+
     'resource_methods': ['GET'],
     'schema': schema
 }
 
 DOMAIN = {
-  'helmets': helmets
+  'helmet': helmets
 }
 
 MONGO_HOST = 'localhost'

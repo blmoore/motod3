@@ -6,6 +6,8 @@ services:
     image: mongo:3.4
     volumes:
       - ./data:/data/db
+    entrypoint: /bin/true
+    container_name: mongodata
 
   mongo:
     image: mongo:3.4

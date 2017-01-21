@@ -1,19 +1,38 @@
-mongodata:
-  image: mongo:3.4
-  volumes:
-    - ./data:/data/db
-mongo:
-  image: mongo:3.4
-  ports:
-    - "27017:27017"
-  command: --port=27017
-mongo-seed:
-  image: mongo:3.4
-  volumes_from:
-    - mongodata
-  links:
-    - mongo
-  command: >
-    mongoimport -d moto -c helmet 
-    --drop --host=0.0.0.0:27017
-    --jsonArray /data/db/lids.json 
+version: '2'
+
+services:
+
+  mongodata:
+    image: mongo:3.4
+    volumes:
+      - ./data:/data/db
+
+  mongo:
+    image: mongo:3.4
+    ports:
+      - "27017:27017"
+    networks:
+      mongo_net:
+        ipv4_address: 172.16.0.1
+    command: --port=27017 --bind_ip 127.0.0.1,172.16.0.1
+
+  mongo-seed:
+    image: mongo:3.4
+    volumes_from:
+      - mongodata
+    links:
+      - mongo
+    networks:
+      mongo_net:
+    command: >
+      mongoimport -d moto -c helmet 
+      --drop --host=172.16.0.1
+      --jsonArray /data/db/lids.json 
+
+networks:
+  mongo_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.0.0/24
+          gateway: 172.16.0.254

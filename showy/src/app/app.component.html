@@ -1,3 +1,26 @@
-<h1>
-  {{title}}
-</h1>
+<md-toolbar color="primary">
+  <span>motod3</span>
+
+  <!-- This fills the remaining space of the current row -->
+  <span class="fill-remaining-space"></span>
+
+  <button md-icon-button claas="nav-icon" [mdMenuTriggerFor]="appMenu">
+    <md-icon>more_vert</md-icon>
+  </button>
+
+</md-toolbar>
+
+<md-menu #appMenu="mdMenu">
+  <button md-menu-item> About </button>
+  <a href="https://github.com/blmoore/motod3">
+    <button md-menu-item> 
+      <i class="fa fa-github nav-icon" aria-hidden="true"></i>
+    </button>
+  </a>
+</md-menu>
+
+
+<div class="container">
+  <h1>{{title}}</h1>
+  <app-data-select></app-data-select>
+</div>

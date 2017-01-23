@@ -23,6 +23,8 @@ class LidItem(scrapy.Item):
     weight = scrapy.Field()
     material = scrapy.Field()
     retention = scrapy.Field()
+    standards = scrapy.Field()
+    features = scrapy.Field()
 
     # impact ratings
     impact = scrapy.Field()

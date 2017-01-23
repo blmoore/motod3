@@ -4,6 +4,17 @@ import scrapy
 
 from lid_scrape.items import LidItem
 
+
+def impact_xpath(region: str) -> str:
+    """ Generate XPath for the different impact fields """
+    xpath = 'substring(//span[contains(@class, "{region}-")]/@class, {start}, 1)'
+    return xpath.format(region=region, start=len(region) + 2)
+
+
+def detail_table_xpath(label: str) -> str:
+    """ For details table get cell value under header """
+    return '//dt[text()="{dt_label}"]/following::dd/text()'.format(dt_label=label)
+
 class LidSpider(scrapy.Spider):
     """ Scraper for sharp helmet ratings """
 
@@ -31,9 +42,6 @@ class LidSpider(scrapy.Spider):
                                  callback=self.parse_details,
                                  meta={'item': item})
 
-    def impact_xpath(self, region):
-        xpath = 'substring(//span[contains(@class, "{region}-")]/@class, {start}, 1)'
-        return xpath.format(region=region, start=len(region)+2)
 
     def parse_details(self, response):
 
@@ -42,15 +50,20 @@ class LidSpider(scrapy.Spider):
 
         # details from strange table
         item['chinguard'] = response.xpath('//p[contains(@class, "impact")]/span/text()').extract_first()
-        item['weight'] = response.xpath('//div[contains(@class, "helmet-details")]/dl/dd[4]/text()').extract_first()
-        item['material'] = response.xpath('//ul[contains(@class, "materials")]/li/text()').extract_first()
+
         # these vary, need to match by text and get next node
-        # item['retention'] = response.xpath('//div[contains(@class, "helmet-details")]/dl/dd[6]/text()').extract_first()
+        item['weight'] = response.xpath(detail_table_xpath('Weight')).extract_first()
+        item['material'] = response.xpath(detail_table_xpath('Construction materials')).extract_first()
+        item['retention'] = response.xpath(detail_table_xpath('Retention system')).extract_first()
+        item['standards'] = response.xpath(detail_table_xpath('Other standards')).extract_first()
+
+        # grab feature list from sidebar
+        item['features'] = response.xpath('//ul[contains(@class, "features")]/li/text()').extract()
 
         # impact ratings from colourmap
         item['impact'] = {}
         for pos in 'top front left right back'.split():
-            this_xpath = self.impact_xpath(pos)
+            this_xpath = impact_xpath(pos)
             item['impact'][pos] = response.xpath(this_xpath).extract_first()
 
         yield item

@@ -53,7 +53,7 @@ class LidSpider(scrapy.Spider):
 
         # these vary, need to match by text and get next node
         item['weight'] = response.xpath(detail_table_xpath('Weight')).extract_first()
-        item['material'] = response.xpath(detail_table_xpath('Construction materials')).extract_first()
+        item['material'] = response.xpath('//dt[text()="Construction materials"]/following::dd/ul/li/text()').extract_first()
         item['retention'] = response.xpath(detail_table_xpath('Retention system')).extract_first()
         item['standards'] = response.xpath(detail_table_xpath('Other standards')).extract_first()
 

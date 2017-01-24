@@ -93,3 +93,8 @@ ITEM_PIPELINES = {'scrapy.pipelines.images.ImagesPipeline': 1}
 # path relative to project base dir
 IMAGES_STORE = '../data/images'
 IMAGES_URLS_FIELD = 'image'
+IMAGES_RESULT_FIELD = 'local'
+IMAGES_THUMBS = {
+    'small': (50, 50),
+    'mid': (100, 100),
+}

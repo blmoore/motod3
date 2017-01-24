@@ -16,6 +16,7 @@ class LidItem(scrapy.Item):
     price = scrapy.Field()
     size_range = scrapy.Field()
     rating = scrapy.Field()
+    local = scrapy.Field()
 
     # details subpage
     detail_url = scrapy.Field()

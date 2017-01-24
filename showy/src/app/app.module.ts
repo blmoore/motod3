@@ -8,11 +8,13 @@ import { AppComponent } from './app.component';
 import { DataSelectComponent } from './data-select/data-select.component';
 
 import 'hammerjs';
+import { LidPlotComponent } from './lid-plot/lid-plot.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DataSelectComponent
+    DataSelectComponent,
+    LidPlotComponent
   ],
   imports: [
     BrowserModule,

@@ -1,21 +1,23 @@
 <h2>Data select component:</h2>
 
 <!--<pre>
-  {{ lids[1] | json }}
+  {{ lids | json }}
+  {{ keys }}
 </pre>-->
 
-<md-grid-list cols="5" gutter="1em">
+<md-grid-list gutter="1em" cols="6" md-cols-sm="2" 
+              md-cols-mid="4" md-cols-lg="6" 
+              md-cols-gt-lg="12">
   
-  <md-grid-tile *ngFor="let key of keys">
+<md-grid-tile *ngFor="let l of lids">
       <md-grid-tile-header>
-        <h2>{{ lids[key].name }}</h2>
-        <p>Details text</p>
+        <h2>{{ l.name }}</h2>
       </md-grid-tile-header>
     
-    <img ng-src="lids[key].image[0]">
+    <img src="{{ l.image[0] }}">
 
       <md-grid-tile-footer>
-        <a ng-href="lids[key].details_url">
+        <a href="{{ l.detail_url }}">
           SHARP details page
         </a>
       </md-grid-tile-footer>

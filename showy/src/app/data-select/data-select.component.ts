@@ -1,25 +1,34 @@
 import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
+import { HelmetService } from '../helmet.service';
 
 @Component({
   selector: 'app-data-select',
   templateUrl: './data-select.component.html',
-  styleUrls: ['./data-select.component.css']
+  styleUrls: ['./data-select.component.css'],
+  providers: [HelmetService]
 })
 export class DataSelectComponent implements OnInit {
 
   lids: Object;
   keys: Array<string>;
 
-  constructor(http: Http) { 
-    this.lids = {}; 
-    http.get('assets/lids.json')
-      .map((res: Response) => res.json())
-      .subscribe(res => {
-          this.lids = res;
-          this.keys = Object.keys(this.lids);
-        });
+  apiserver: string;
+
+  constructor(helmetService: HelmetService) { 
+    helmetService.getHelmets()
+      .subscribe(
+        lids => this.processHelmets(lids),
+        error => console.log('Error: ' + error),
+        () => console.log('Request complete')
+      )
+  }
+
+  private processHelmets(lids: any) {
+    console.log(JSON.stringify(lids.name));
+    this.lids = lids['_items']; 
+    this.keys = Object.keys(this.lids);
   }
 
   ngOnInit() {

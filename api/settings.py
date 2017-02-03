@@ -22,7 +22,35 @@ schema = {
         },
     'rating': {
         'type': 'string'
-        }
+        },
+    'detail_url': {
+        'type': 'string'
+    },
+    'chinguard': {
+        'type': 'string'
+    },
+    'weight': {
+        'type': 'string'
+    },
+    'material': {
+        'type': 'string'
+    },
+    'retention': {
+        'type': 'string'
+    },
+    'standards': {
+        'type': 'string'
+    },
+    'features': {
+        'type': 'list'
+    },
+    'impact': {
+        'type': 'string'
+    },
+    'local': {
+        'type': 'string'
+    }
+
 }
 
 helmets = {
@@ -47,3 +75,7 @@ MONGO_HOST = 'localhost'
 MONGO_PORT = 27017
 
 MONGO_DBNAME = 'moto'
+
+X_DOMAINS = '*'
+PAGINATION_DEFAULT = 100
+PAGINATION_LIMIT = 500
